@@ -7,10 +7,10 @@ import (
 	"log"
 	"os"
 
+	"twitter-uala/src/utils/server"
+
 	"github.com/gin-gonic/gin"
 	"github.com/golang-migrate/migrate/v4"
-	"twitter-uala/utils/server"
-
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
@@ -56,7 +56,7 @@ func runMigrations() error {
 	}
 
 	migrations, err := migrate.NewWithDatabaseInstance(
-		"file://migrations",
+		"file://../migrations",
 		dbName,
 		driver,
 	)

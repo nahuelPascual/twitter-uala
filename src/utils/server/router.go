@@ -2,7 +2,8 @@ package server
 
 import (
 	"fmt"
-	"twitter-uala/utils/middlewares"
+
+	"twitter-uala/src/utils/middlewares"
 
 	"github.com/gin-gonic/gin"
 )

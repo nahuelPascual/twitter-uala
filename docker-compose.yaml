@@ -17,7 +17,7 @@ services:
     container_name: twitter-uala
     build: .
     volumes:
-      - ./api:/go/src/twitter-uala/api
+      - ./src:/go/src/twitter-uala/api
     environment:
       DB_USER: postgres
       DB_PASSWORD: ${POSTGRES_PASSWORD}
