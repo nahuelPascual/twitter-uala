@@ -15,7 +15,9 @@ services:
 
   twitter-uala:
     container_name: twitter-uala
-    build: .
+    build:
+      context: .
+    entrypoint: sh -c 'sleep 5 && ./main'
     volumes:
       - ./src:/go/src/twitter-uala/api
     environment:
