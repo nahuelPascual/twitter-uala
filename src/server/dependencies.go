@@ -15,12 +15,15 @@ import (
 type (
 	controllersImpl struct {
 		TweetsController controllers.TweetsController
+		UsersController  controllers.UsersController
 	}
 	servicesImpl struct {
 		TweetsService services.TweetsService
+		UsersService  services.UsersService
 	}
 	repositoriesImpl struct {
 		TweetsRepository repositories.TweetsRepository
+		UsersRepository  repositories.UsersRepository
 	}
 	clientsImpl struct {
 		dbClient *sqlx.DB
@@ -36,18 +39,21 @@ func resolveClients() clientsImpl {
 func resolveControllers(services servicesImpl, clients clientsImpl) controllersImpl {
 	return controllersImpl{
 		TweetsController: controllers.TweetsController{TweetsService: services.TweetsService},
+		UsersController:  controllers.UsersController{UsersService: services.UsersService},
 	}
 }
 
 func resolveServices(repositories repositoriesImpl, clients clientsImpl) servicesImpl {
 	return servicesImpl{
 		TweetsService: services.NewTweetsService(repositories.TweetsRepository),
+		UsersService:  services.NewUsersService(repositories.UsersRepository),
 	}
 }
 
 func resolveRepositories(clients clientsImpl) repositoriesImpl {
 	return repositoriesImpl{
 		TweetsRepository: repositories.NewTweetsRepository(clients.dbClient),
+		UsersRepository:  repositories.NewUsersRepository(clients.dbClient),
 	}
 }
 

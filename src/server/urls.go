@@ -25,8 +25,8 @@ func (r routerImpl) registerRoutes() {
 
 		users := api.Group("/users")
 		{
-			users.POST("/:id/follow", nil)
-			// users.POST("/:id/unfollow", nil) nice-to-have!
+			users.POST("/:username/follow", controllersImpl.UsersController.Follow)
+			// users.POST("/:username/unfollow", controllersImpl.UsersController.Unfollow) nice-to-have!
 			users.GET("/:id/timeline", nil)
 		}
 
