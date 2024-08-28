@@ -6,8 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"twitter-uala/src/utils/server"
+	"twitter-uala/src/server"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-migrate/migrate/v4"
