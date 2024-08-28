@@ -10,7 +10,9 @@ This application is designed to work with a PostgreSQL database and is container
 - **Docker Compose**: [Install Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Running the Application
-From root project folder `twitter-uala` just run it with docker-compose
+1. First of all you will need to create a `.env` file. Copying `.sample.env` and renaming it is the simplest way to getting started.
+
+2. Now, from root project folder `twitter-uala` just run it with docker-compose
 
 ```bash
 docker-compose up
