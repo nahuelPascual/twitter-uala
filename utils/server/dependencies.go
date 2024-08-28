@@ -5,11 +5,14 @@ import (
 	"net/url"
 	"os"
 
+	"twitter-uala/src/controllers"
+
 	"github.com/jmoiron/sqlx"
 )
 
 type (
 	controllersImpl struct {
+		TweetsController controllers.TweetsController
 	}
 	servicesImpl struct {
 	}

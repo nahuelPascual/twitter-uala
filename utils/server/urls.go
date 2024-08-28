@@ -21,7 +21,7 @@ func (r routerImpl) registerRoutes() {
 		tweets := api.Group("/tweets")
 		{
 			//tweets.GET("", nil) nice-to-have!
-			tweets.POST("", nil)
+			tweets.POST("", controllersImpl.TweetsController.Publish)
 		}
 
 		users := api.Group("/users")

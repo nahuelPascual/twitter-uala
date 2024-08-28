@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  twitter-uala-db:
+    image: postgres
+    volumes:
+      - twitter-uala-db:/var/lib/postgresql/twitter-uala
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: twitter-uala
+
+  twitter-uala:
+    container_name: twitter-uala
+    build: .
+    volumes:
+      - ./api:/go/src/twitter-uala/api
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: twitter-uala
+      DB_HOST: twitter-uala-db
+      DB_PORT: 5432
+      ENVIRONMENT: ${ENVIRONMENT}
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - twitter-uala-db
+
+volumes:
+  twitter-uala-db:
