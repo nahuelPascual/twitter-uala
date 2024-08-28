@@ -55,7 +55,7 @@ func runMigrations() error {
 	}
 
 	migrations, err := migrate.NewWithDatabaseInstance(
-		"file://../migrations",
+		"file://migrations",
 		dbName,
 		driver,
 	)
