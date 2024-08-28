@@ -11,7 +11,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      DB_NAME: twitter-uala
+      DB_NAME: ${POSTGRES_DB}
 
   twitter-uala:
     container_name: twitter-uala
@@ -21,7 +21,7 @@ services:
     environment:
       DB_USER: postgres
       DB_PASSWORD: ${POSTGRES_PASSWORD}
-      DB_NAME: twitter-uala
+      DB_NAME: ${POSTGRES_DB}
       DB_HOST: twitter-uala-db
       DB_PORT: 5432
       ENVIRONMENT: ${ENVIRONMENT}

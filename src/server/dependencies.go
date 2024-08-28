@@ -6,6 +6,8 @@ import (
 	"os"
 
 	"twitter-uala/src/controllers"
+	"twitter-uala/src/repositories"
+	"twitter-uala/src/services"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -15,8 +17,10 @@ type (
 		TweetsController controllers.TweetsController
 	}
 	servicesImpl struct {
+		TweetsService services.TweetsService
 	}
 	repositoriesImpl struct {
+		TweetsRepository repositories.TweetsRepository
 	}
 	clientsImpl struct {
 		dbClient *sqlx.DB
@@ -30,15 +34,21 @@ func resolveClients() clientsImpl {
 }
 
 func resolveControllers(services servicesImpl, clients clientsImpl) controllersImpl {
-	return controllersImpl{}
+	return controllersImpl{
+		TweetsController: controllers.TweetsController{TweetsService: services.TweetsService},
+	}
 }
 
 func resolveServices(repositories repositoriesImpl, clients clientsImpl) servicesImpl {
-	return servicesImpl{}
+	return servicesImpl{
+		TweetsService: services.NewTweetsService(repositories.TweetsRepository),
+	}
 }
 
 func resolveRepositories(clients clientsImpl) repositoriesImpl {
-	return repositoriesImpl{}
+	return repositoriesImpl{
+		TweetsRepository: repositories.NewTweetsRepository(clients.dbClient),
+	}
 }
 
 func resolveSQLClient() *sqlx.DB {
