@@ -4,7 +4,6 @@ import (
 	_ "github.com/lib/pq"
 
 	"twitter-uala/src/controllers"
-	"twitter-uala/utils/middlewares"
 )
 
 func (r routerImpl) registerRoutes() {
@@ -16,7 +15,7 @@ func (r routerImpl) registerRoutes() {
 	servicesImpl := resolveServices(repositoriesImpl, clientsImpl)
 	controllersImpl := resolveControllers(servicesImpl, clientsImpl)
 
-	api := r.router.Group("/api/v1", middlewares.CallerID)
+	api := r.router.Group("/api/v1")
 	{
 		tweets := api.Group("/tweets")
 		{
