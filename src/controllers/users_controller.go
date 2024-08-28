@@ -46,5 +46,5 @@ func (c *UsersController) Follow(ctx *gin.Context) {
 		}
 	}
 
-	ctx.Status(http.StatusCreated)
+	ctx.Status(http.StatusOK)
 }

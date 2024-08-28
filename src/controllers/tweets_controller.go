@@ -29,7 +29,7 @@ func (c *TweetsController) Publish(ctx *gin.Context) {
 		return
 	}
 
-	if err := c.TweetsService.Publish(ctx, request.ToDomain(headers.UserID)); err != nil {
+	if err := c.TweetsService.Publish(request.ToDomain(headers.UserID)); err != nil {
 		log.Println(fmt.Sprintf("error creating tweet: %s", err.Error()))
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, rest.ErrorResponse{StatusCode: http.StatusInternalServerError, ErrMsg: err.Error()})
 		return
