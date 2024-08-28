@@ -1,6 +1,7 @@
 package services
 
 import (
+	"math"
 	"sort"
 
 	"twitter-uala/src/entities"
@@ -57,8 +58,9 @@ func (s timelineService) ResolveTimeline(callerID entities.UserID) ([]entities.T
 
 	// TODO it could be expensive and should be improved
 	sort.Slice(timeline, func(i, j int) bool {
-		return timeline[i].CreatedAt.Before(timeline[j].CreatedAt)
+		return timeline[i].CreatedAt.After(timeline[j].CreatedAt)
 	})
 
-	return timeline[:timelineLimit], nil
+	maxSize := int(math.Min(float64(len(timeline)), float64(timelineLimit)))
+	return timeline[:maxSize], nil
 }
