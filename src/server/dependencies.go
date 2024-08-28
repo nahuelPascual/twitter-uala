@@ -14,12 +14,14 @@ import (
 
 type (
 	controllersImpl struct {
-		TweetsController controllers.TweetsController
-		UsersController  controllers.UsersController
+		TweetsController   controllers.TweetsController
+		UsersController    controllers.UsersController
+		TimelineController controllers.TimelineController
 	}
 	servicesImpl struct {
-		TweetsService services.TweetsService
-		UsersService  services.UsersService
+		TweetsService   services.TweetsService
+		UsersService    services.UsersService
+		TimelineService services.TimelineService
 	}
 	repositoriesImpl struct {
 		TweetsRepository repositories.TweetsRepository
@@ -38,15 +40,17 @@ func resolveClients() clientsImpl {
 
 func resolveControllers(services servicesImpl, clients clientsImpl) controllersImpl {
 	return controllersImpl{
-		TweetsController: controllers.TweetsController{TweetsService: services.TweetsService},
-		UsersController:  controllers.UsersController{UsersService: services.UsersService},
+		TweetsController:   controllers.TweetsController{TweetsService: services.TweetsService},
+		UsersController:    controllers.UsersController{UsersService: services.UsersService},
+		TimelineController: controllers.TimelineController{TimelineService: services.TimelineService},
 	}
 }
 
 func resolveServices(repositories repositoriesImpl, clients clientsImpl) servicesImpl {
 	return servicesImpl{
-		TweetsService: services.NewTweetsService(repositories.TweetsRepository),
-		UsersService:  services.NewUsersService(repositories.UsersRepository),
+		TweetsService:   services.NewTweetsService(repositories.TweetsRepository),
+		UsersService:    services.NewUsersService(repositories.UsersRepository),
+		TimelineService: services.NewTimelineService(repositories.UsersRepository, repositories.TweetsRepository),
 	}
 }
 

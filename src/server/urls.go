@@ -27,8 +27,9 @@ func (r routerImpl) registerRoutes() {
 		{
 			users.POST("/:username/follow", controllersImpl.UsersController.Follow)
 			// users.POST("/:username/unfollow", controllersImpl.UsersController.Unfollow) nice-to-have!
-			users.GET("/:id/timeline", nil)
 		}
+
+		api.GET("/timeline", controllersImpl.TimelineController.GetTimeline)
 
 	}
 }

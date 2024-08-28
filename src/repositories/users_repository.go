@@ -15,6 +15,7 @@ type (
 	UsersRepository interface {
 		GetByUsername(username string) (entities.User, error)
 		AddFollower(userID entities.UserID, followerID entities.UserID) error
+		GetFollowedUsers(entities.UserID) ([]entities.UserID, error)
 	}
 	usersRepository struct {
 		client *sqlx.DB
@@ -44,4 +45,13 @@ func (r usersRepository) AddFollower(userID entities.UserID, followerID entities
 		return err
 	}
 	return nil
+}
+
+func (r usersRepository) GetFollowedUsers(userID entities.UserID) ([]entities.UserID, error) {
+	const query = `SELECT user_id FROM followers WHERE follower_user_id = $1`
+	var userIDs []entities.UserID
+	if err := r.client.Select(&userIDs, query, userID); err != nil {
+		return nil, err
+	}
+	return userIDs, nil
 }
